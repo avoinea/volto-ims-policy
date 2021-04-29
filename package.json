@@ -1,11 +1,11 @@
 {
-  "name": "@eeacms/volto-addon-template",
+  "name": "@eeacms/volto-ims-policy",
   "version": "0.1.0",
-  "description": "@eeacms/volto-addon-template: Volto add-on",
+  "description": "@eeacms/volto-ims-policy: Volto add-on",
   "main": "src/index.js",
   "author": "European Environment Agency: IDM2 A-Team",
   "license": "MIT",
-  "homepage": "https://github.com/eea/volto-addon-template",
+  "homepage": "https://github.com/eea/volto-ims-policy",
   "keywords": [
     "volto-addon",
     "volto",
@@ -14,7 +14,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git@github.com:eea/volto-addon-template.git"
+    "url": "git@github.com:eea/volto-ims-policy.git"
   },
   "dependencies": {
   },
@@ -30,5 +30,8 @@
     "lint:fix": "../../../node_modules/eslint/bin/eslint.js --fix 'src/**/*.{js,jsx}'",
     "cypress:run": "../../../node_modules/cypress/bin/cypress run",
     "cypress:open": "../../../node_modules/cypress/bin/cypress open"
+  }
+}
+ess open"
   }
 }
