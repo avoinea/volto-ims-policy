@@ -7,7 +7,6 @@ import React, { Component } from 'react';
 import { Map } from 'immutable';
 import PropTypes from 'prop-types';
 import { stateFromHTML } from 'draft-js-import-html';
-import { isEqual } from 'lodash';
 import { Editor, DefaultDraftBlockRenderMap, EditorState } from 'draft-js';
 import { defineMessages, injectIntl } from 'react-intl';
 import config from '@plone/volto/registry';
@@ -49,16 +48,6 @@ class Edit extends Component {
     onFocusPreviousBlock: PropTypes.func.isRequired,
     onFocusNextBlock: PropTypes.func.isRequired,
     block: PropTypes.string.isRequired,
-    editable: PropTypes.bool,
-  };
-
-  /**
-   * Default properties
-   * @property {Object} defaultProps Default properties.
-   * @static
-   */
-  static defaultProps = {
-    editable: true,
   };
 
   /**
@@ -72,7 +61,10 @@ class Edit extends Component {
 
     if (!__SERVER__) {
       let editorState;
-      if (props.properties && props.properties.title) {
+      if (props.metadata && props.metadata.title) {
+        const contentState = stateFromHTML(props.metadata.title);
+        editorState = EditorState.createWithContent(contentState);
+      } else if (props.properties && props.properties.title) {
         const contentState = stateFromHTML(props.properties.title);
         editorState = EditorState.createWithContent(contentState);
       } else {
@@ -103,7 +95,7 @@ class Edit extends Component {
    * @memberof Edit
    */
   shouldComponentUpdate(nextProps) {
-    return this.props.selected || !isEqual(this.props.data, nextProps.data);
+    return true;
   }
   /**
    * Component will receive props
@@ -112,6 +104,19 @@ class Edit extends Component {
    * @returns {undefined}
    */
   UNSAFE_componentWillReceiveProps(nextProps) {
+    if (
+      nextProps?.metadata?.title &&
+      this.props.metadata?.title !== nextProps.metadata.title &&
+      !this.state.focus
+    ) {
+      const contentState = stateFromHTML(nextProps.metadata.title);
+      this.setState({
+        editorState: nextProps.metadata.title
+          ? EditorState.createWithContent(contentState)
+          : EditorState.createEmpty(),
+      });
+    }
+
     if (
       nextProps.properties.title &&
       this.props.properties.title !== nextProps.properties.title &&
@@ -162,7 +167,6 @@ class Edit extends Component {
 
     return (
       <Editor
-        readOnly={!this.props.editable}
         onChange={this.onChange}
         editorState={this.state.editorState}
         blockRenderMap={extendedBlockRenderMap}
