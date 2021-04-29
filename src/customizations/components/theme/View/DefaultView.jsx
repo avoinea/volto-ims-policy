@@ -62,13 +62,10 @@ const DefaultView = ({ content, intl, location }) => {
   ) : (
     <Container id="page-document">
       <h1 className="documentFirstHeading">{content.title}</h1>
-      {content.description && (
-        <p className="documentDescription">{content.description}</p>
-      )}
       {content.image && (
         <Image
           className="document-image"
-          src={content.image.scales.thumb.download}
+          src={content?.image?.scales?.thumb?.download || ''}
           floated="right"
         />
       )}
@@ -103,10 +100,6 @@ DefaultView.propTypes = {
      * Title of the object
      */
     title: PropTypes.string,
-    /**
-     * Description of the object
-     */
-    description: PropTypes.string,
     /**
      * Text of the object
      */
