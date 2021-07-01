@@ -2,6 +2,9 @@ const applyConfig = (config) => {
   // Restrict block-style to Layout only
   config.settings.layoutOnlyBlockStyles = true;
 
+  // Restrict slate metadata mentions to Layout only
+  config.settings.layoutOnlySlateMetadataMentions = true;
+
   // Disable tags on View
   config.settings.showTags = false;
 
