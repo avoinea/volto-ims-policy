@@ -12,6 +12,11 @@ const applyConfig = (config) => {
   config.blocks.blocksConfig.title.restricted = false;
   config.blocks.requiredBlocks = [];
 
+  config.settings.toastConfig = {
+    position: 'top-center',
+    autoClose: 6000,
+  };
+
   return config;
 };
 
