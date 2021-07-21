@@ -23,10 +23,7 @@ const ImageView = ({ content }) => (
       {content.title}
       {content.subtitle && ` - ${content.subtitle}`}
     </h1>
-    {typeof content.description === 'object' && content.description && (
-      <p className="documentDescription">{content.description.data}</p>
-    )}
-    {typeof content.description !== 'object' && content.description && (
+    {content.description && (
       <p className="documentDescription">{content.description}</p>
     )}
     {content?.image?.download && (
