@@ -22,7 +22,9 @@ const FileView = ({ content }) => (
       {content.subtitle && ` - ${content.subtitle}`}
     </h1>
     {content.description && (
-      <p className="documentDescription">{content.description}</p>
+      <p className="documentDescription">
+        {content.description?.data || content.description}
+      </p>
     )}
     {content.file?.download && (
       <a href={flattenToAppURL(content.file.download)}>
