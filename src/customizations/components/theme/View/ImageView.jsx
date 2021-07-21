@@ -25,7 +25,9 @@ const ImageView = ({ content }) => (
     </h1>
     {content.description && (
       <p className="documentDescription">
-        {content.description?.data || content.description}
+        {content.description.data !== undefined
+          ? content.description.data
+          : content.description}
       </p>
     )}
     {content?.image?.download && (
@@ -59,7 +61,7 @@ const ImageView = ({ content }) => (
 ImageView.propTypes = {
   content: PropTypes.shape({
     title: PropTypes.string,
-    description: PropTypes.string,
+    description: PropTypes.any,
     image: PropTypes.shape({
       scales: PropTypes.shape({
         preview: PropTypes.shape({

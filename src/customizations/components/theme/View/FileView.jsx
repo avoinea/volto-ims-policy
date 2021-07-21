@@ -23,7 +23,9 @@ const FileView = ({ content }) => (
     </h1>
     {content.description && (
       <p className="documentDescription">
-        {content.description?.data || content.description}
+        {content.description.data !== undefined
+          ? content.description.data
+          : content.description}
       </p>
     )}
     {content.file?.download && (
@@ -42,7 +44,7 @@ const FileView = ({ content }) => (
 FileView.propTypes = {
   content: PropTypes.shape({
     title: PropTypes.string,
-    description: PropTypes.string,
+    description: PropTypes.any,
     file: PropTypes.shape({
       download: PropTypes.string,
       filename: PropTypes.string,
