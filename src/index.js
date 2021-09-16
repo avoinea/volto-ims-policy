@@ -12,6 +12,12 @@ const applyConfig = (config) => {
   config.blocks.blocksConfig.title.restricted = false;
   config.blocks.requiredBlocks = [];
 
+  // 134485 pass faceted related popup to plone for resolving instead of volto
+  config.settings.virtualHostedPaths = [
+    ...(config.settings.virtualHostedPaths || []),
+    '**/@@eeareferencebrowser-popup-selecteditem.html',
+  ];
+
   config.settings.toastConfig = {
     position: 'top-center',
     autoClose: 6000,
