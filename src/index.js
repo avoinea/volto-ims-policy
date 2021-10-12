@@ -1,3 +1,5 @@
+import { FrequencyOfDissemination } from '@eeacms/volto-ims-policy/components';
+
 const applyConfig = (config) => {
   // Restrict block-style to Layout only
   config.settings.layoutOnlyBlockStyles = true;
@@ -17,6 +19,11 @@ const applyConfig = (config) => {
     ...(config.settings.virtualHostedPaths || []),
     '**/@@eeareferencebrowser-popup-selecteditem.html',
   ];
+
+  // Frequency of dissemination
+  if (config.widgets.views?.id) {
+    config.widgets.views.id.frequency_of_dissemination = FrequencyOfDissemination;
+  }
 
   config.settings.toastConfig = {
     position: 'top-center',
