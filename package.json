@@ -12,6 +12,9 @@
     "plone",
     "react"
   ],
+  "addons": [
+    "volto-slate"
+  ],
   "repository": {
     "type": "git",
     "url": "git@github.com:eea/volto-ims-policy.git"
