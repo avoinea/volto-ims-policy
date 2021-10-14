@@ -1,4 +1,8 @@
-import { FrequencyOfDissemination } from '@eeacms/volto-ims-policy/components';
+import {
+  FrequencyOfDissemination,
+  DataProvenance,
+  InstitutionalMandate,
+} from '@eeacms/volto-ims-policy/components';
 
 const applyConfig = (config) => {
   // Restrict block-style to Layout only
@@ -25,6 +29,13 @@ const applyConfig = (config) => {
     config.widgets.views.id.frequency_of_dissemination = FrequencyOfDissemination;
   }
 
+  // Data provenance
+  config.widgets.id.data_provenance = DataProvenance;
+
+  // Institutional mandate
+  config.widgets.id.institutional_mandate = InstitutionalMandate;
+
+  // Toast
   config.settings.toastConfig = {
     position: 'top-center',
     autoClose: 6000,
