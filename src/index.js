@@ -23,6 +23,9 @@ const applyConfig = (config) => {
     autoClose: 6000,
   };
 
+  // Date format for EU
+  config.settings.dateFormat = 'D MMM YYYY, hh:mm a';
+
   return config;
 };
 
