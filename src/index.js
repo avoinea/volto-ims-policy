@@ -79,7 +79,7 @@ const applyConfig = (config) => {
   };
 
   // Date format for EU
-  config.settings.dateFormat = 'D MMM YYYY, hh:mm a';
+  config.settings.dateLocale = 'en-gb';
 
   return config;
 };
