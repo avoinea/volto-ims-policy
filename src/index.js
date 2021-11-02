@@ -82,6 +82,7 @@ const applyConfig = (config) => {
 
   // Date format for EU
   config.settings.dateLocale = 'en-gb';
+  config.settings.pdfWorkerSrc = '//www.eea.europa.eu/pdfjs/pdf.worker.min.js';
 
   return config;
 };
