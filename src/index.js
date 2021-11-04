@@ -31,16 +31,18 @@ const applyConfig = (config) => {
   ];
 
   // 139558 any path that isn't static ims or controlpanel is treated as external
-  const notInIMS = /^(?!.*(\/|\/ims|\/static|\/controlpanel|\/cypress)).*$/;
-  config.settings.externalRoutes = [
-    {
-      match: {
-        path: notInIMS,
-        exact: false,
-        strict: false,
+  if (config.settings.host !== 'localhost') {
+    const notInIMS = /^(?!.*(\/ims|\/static|\/controlpanel|\/cypress)).*$/;
+    config.settings.externalRoutes = [
+      {
+        match: {
+          path: notInIMS,
+          exact: false,
+          strict: false,
+        },
       },
-    },
-  ];
+    ];
+  }
 
   // 139558 allow certain volto routes to load from any url not just root of site
   config.addonRoutes = [
@@ -80,6 +82,7 @@ const applyConfig = (config) => {
 
   // Date format for EU
   config.settings.dateLocale = 'en-gb';
+  config.settings.pdfWorkerSrc = '//www.eea.europa.eu/pdfjs/pdf.worker.min.js';
 
   return config;
 };
