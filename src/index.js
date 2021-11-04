@@ -31,7 +31,7 @@ const applyConfig = (config) => {
   ];
 
   // 139558 any path that isn't static ims or controlpanel is treated as external
-  if (config.settings.host !== 'localhost') {
+  if (!config.settings.publicURL.includes('localhost')) {
     const notInIMS = /^(?!.*(\/ims|\/static|\/controlpanel|\/cypress)).*$/;
     config.settings.externalRoutes = [
       {
