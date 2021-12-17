@@ -11,11 +11,13 @@ import {
 } from '@plone/volto/components';
 
 const applyConfig = (config) => {
-  // Restrict block-style to Layout only
-  config.settings.layoutOnlyBlockStyles = true;
+  if (process.env.NODE_ENV === 'production') {
+    // Restrict block-style to Layout only
+    config.settings.layoutOnlyBlockStyles = true;
 
-  // Restrict slate metadata mentions to Layout only
-  config.settings.layoutOnlySlateMetadataMentions = true;
+    // Restrict slate metadata mentions to Layout only
+    config.settings.layoutOnlySlateMetadataMentions = true;
+  }
 
   // Disable tags on View
   config.settings.showTags = false;
