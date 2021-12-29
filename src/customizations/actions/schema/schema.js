@@ -18,7 +18,7 @@ import {
  * @returns {Object} Get schema action.
  */
 export function getSchema(type, url) {
-  url = typeof url !== 'undefined' ? url : '';
+  url = '';
   return {
     type: GET_SCHEMA,
     request: {
