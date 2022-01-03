@@ -17,6 +17,9 @@ const applyConfig = (config) => {
 
     // Restrict slate metadata mentions to Layout only
     config.settings.layoutOnlySlateMetadataMentions = true;
+  } else {
+    // Enable description block for cypress
+    config.blocks.blocksConfig.description.restricted = false;
   }
 
   // Disable tags on View
