@@ -15,6 +15,10 @@ const messages = defineMessages({
     id: 'Center',
     defaultMessage: 'Center',
   },
+  original: {
+    id: 'Original',
+    defaultMessage: 'Original image size',
+  },
 });
 
 const ImageSizeWidget = ({ onChangeBlock, data, block, disabled }) => {
@@ -68,6 +72,18 @@ const ImageSizeWidget = ({ onChangeBlock, data, block, disabled }) => {
           disabled={disabled}
         >
           <div className="image-sizes-text">L</div>
+        </Button>
+      </Button.Group>
+      <Button.Group>
+        <Button
+          icon
+          basic
+          aria-label={intl.formatMessage(messages.original)}
+          onClick={() => onImageSize('o')}
+          active={data.size === 'o'}
+          disabled={disabled}
+        >
+          <div className="image-sizes-text">O</div>
         </Button>
       </Button.Group>
     </div>

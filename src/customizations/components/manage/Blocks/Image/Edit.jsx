@@ -251,8 +251,6 @@ class Edit extends Component {
    */
   render() {
     const { data } = this.props;
-    console.log('data', data);
-    console.log('props', this.props);
     const placeholder =
       this.props.data.placeholder ||
       this.props.intl.formatMessage(messages.ImageBlockInputPlaceholder);
@@ -270,6 +268,7 @@ class Edit extends Component {
           <img
             className={cx({
               'full-width': data.align === 'full',
+              original: data.size === 'o',
               large: data.size === 'l',
               medium: data.size === 'm',
               small: data.size === 's',
@@ -279,7 +278,9 @@ class Edit extends Component {
                 ? // Backwards compat in the case that the block is storing the full server URL
                   (() => {
                     if (data.size === 'l')
-                      return `${flattenToAppURL(data.url)}/@@images/image`;
+                      return `${flattenToAppURL(
+                        data.url,
+                      )}/@@images/image/large`;
                     if (data.size === 'm')
                       return `${flattenToAppURL(
                         data.url,
