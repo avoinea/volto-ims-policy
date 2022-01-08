@@ -4,20 +4,20 @@ import { Button } from 'semantic-ui-react';
 
 const messages = defineMessages({
   small: {
-    id: 'Left',
-    defaultMessage: 'Left',
+    id: 'Small',
+    defaultMessage: 'Small size',
   },
   medium: {
-    id: 'Right',
-    defaultMessage: 'Right',
+    id: 'Medium',
+    defaultMessage: 'Medium size',
   },
   large: {
-    id: 'Center',
-    defaultMessage: 'Center',
+    id: 'Large',
+    defaultMessage: 'Large size',
   },
-  original: {
-    id: 'Original',
-    defaultMessage: 'Original image size',
+  full: {
+    id: 'Full',
+    defaultMessage: 'Full size',
   },
 });
 
@@ -78,12 +78,12 @@ const ImageSizeWidget = ({ onChangeBlock, data, block, disabled }) => {
         <Button
           icon
           basic
-          aria-label={intl.formatMessage(messages.original)}
-          onClick={() => onImageSize('o')}
-          active={data.size === 'o'}
+          aria-label={intl.formatMessage(messages.full)}
+          onClick={() => onImageSize('f')}
+          active={data.size === 'f'}
           disabled={disabled}
         >
-          <div className="image-sizes-text">O</div>
+          <div className="image-sizes-text">F</div>
         </Button>
       </Button.Group>
     </div>

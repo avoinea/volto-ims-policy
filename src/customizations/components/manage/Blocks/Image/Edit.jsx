@@ -268,8 +268,7 @@ class Edit extends Component {
           <img
             className={cx({
               'full-width': data.align === 'full',
-              original: data.size === 'o',
-              large: data.size === 'l',
+              large: data.size === 'l' || data.size === 'f',
               medium: data.size === 'm',
               small: data.size === 's',
             })}
