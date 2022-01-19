@@ -22,6 +22,9 @@ const applyConfig = (config) => {
     config.blocks.blocksConfig.description.restricted = false;
   }
 
+  // Working copy-support
+  config.settings.hasWorkingCopySupport = true;
+
   // Disable tags on View
   config.settings.showTags = false;
 
