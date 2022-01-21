@@ -18,6 +18,9 @@ const applyConfig = (config) => {
 
     // Restrict slate metadata mentions to Layout only
     config.settings.layoutOnlySlateMetadataMentions = true;
+
+    // Id
+    config.widgets.id.id = ReadOnlyText;
   } else {
     // Enable description block for cypress
     config.blocks.blocksConfig.description.restricted = false;
@@ -79,9 +82,6 @@ const applyConfig = (config) => {
 
   // Institutional mandate
   config.widgets.id.institutional_mandate = InstitutionalMandate;
-
-  // Id
-  config.widgets.id.id = ReadOnlyText;
 
   // Toast
   config.settings.toastConfig = {
