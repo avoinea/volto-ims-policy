@@ -2,6 +2,7 @@ import {
   FrequencyOfDissemination,
   DataProvenance,
   InstitutionalMandate,
+  ReadOnlyText,
 } from '@eeacms/volto-ims-policy/components';
 
 import {
@@ -78,6 +79,9 @@ const applyConfig = (config) => {
 
   // Institutional mandate
   config.widgets.id.institutional_mandate = InstitutionalMandate;
+
+  // Id
+  config.widgets.id.id = ReadOnlyText;
 
   // Toast
   config.settings.toastConfig = {
