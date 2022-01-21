@@ -2,7 +2,7 @@ import {
   FrequencyOfDissemination,
   DataProvenance,
   InstitutionalMandate,
-  ReadOnlyText,
+  ReadOnlyId,
 } from '@eeacms/volto-ims-policy/components';
 
 import {
@@ -18,9 +18,6 @@ const applyConfig = (config) => {
 
     // Restrict slate metadata mentions to Layout only
     config.settings.layoutOnlySlateMetadataMentions = true;
-
-    // Id
-    config.widgets.id.id = ReadOnlyText;
   } else {
     // Enable description block for cypress
     config.blocks.blocksConfig.description.restricted = false;
@@ -82,6 +79,9 @@ const applyConfig = (config) => {
 
   // Institutional mandate
   config.widgets.id.institutional_mandate = InstitutionalMandate;
+
+  // Read-only Id
+  config.widgets.id.id = ReadOnlyId;
 
   // Toast
   config.settings.toastConfig = {
