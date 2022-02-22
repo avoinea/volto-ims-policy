@@ -56,7 +56,7 @@ class Anontools extends Component {
               aria-label="login"
               to={`/ims/login${
                 this.props.content
-                  ? `?return_url=${this.props.content['@id'].replace(
+                  ? `?return_url=${this.props.content['@id']?.replace(
                       config.settings.apiPath,
                       '',
                     )}`
