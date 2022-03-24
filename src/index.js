@@ -3,7 +3,6 @@ import {
   DataProvenance,
   InstitutionalMandate,
   ReadOnlyId,
-  DescriptionWidget,
 } from '@eeacms/volto-ims-policy/components';
 
 import {
@@ -77,9 +76,6 @@ const applyConfig = (config) => {
 
   // Data provenance
   config.widgets.id.data_provenance = DataProvenance;
-
-  // Description Behavior
-  config.widgets.id.description = DescriptionWidget;
 
   // Institutional mandate
   config.widgets.id.institutional_mandate = InstitutionalMandate;
