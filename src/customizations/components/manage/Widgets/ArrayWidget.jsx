@@ -177,7 +177,7 @@ class ArrayWidget extends Component {
     error: [],
     choices: [],
     value: null,
-    creatable: false,
+    creatable: true,
   };
 
   /**
