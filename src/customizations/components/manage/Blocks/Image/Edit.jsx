@@ -3,34 +3,34 @@
  * @module components/manage/Blocks/Image/Edit
  */
 
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { compose } from "redux";
-import { readAsDataURL } from "promise-file-reader";
-import { Button, Dimmer, Input, Loader, Message } from "semantic-ui-react";
-import { defineMessages, injectIntl } from "react-intl";
-import loadable from "@loadable/component";
-import cx from "classnames";
-import { isEqual } from "lodash";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { readAsDataURL } from 'promise-file-reader';
+import { Button, Dimmer, Input, Loader, Message } from 'semantic-ui-react';
+import { defineMessages, injectIntl } from 'react-intl';
+import loadable from '@loadable/component';
+import cx from 'classnames';
+import { isEqual } from 'lodash';
 
-import { Icon, ImageSidebar, SidebarPortal } from "@plone/volto/components";
-import { createContent, getContent } from "@plone/volto/actions";
-import { flattenToAppURL, getBaseUrl } from "@plone/volto/helpers";
+import { Icon, ImageSidebar, SidebarPortal } from '@plone/volto/components';
+import { createContent, getContent } from '@plone/volto/actions';
+import { flattenToAppURL, getBaseUrl } from '@plone/volto/helpers';
 
-import { setImageSize } from "@eeacms/volto-ims-policy/helpers";
-import imageBlockSVG from "@plone/volto/components/manage/Blocks/Image/block-image.svg";
-import clearSVG from "@plone/volto/icons/clear.svg";
-import navTreeSVG from "@plone/volto/icons/nav.svg";
-import aheadSVG from "@plone/volto/icons/ahead.svg";
-import uploadSVG from "@plone/volto/icons/upload.svg";
+import { setImageSize } from '@eeacms/volto-ims-policy/helpers';
+import imageBlockSVG from '@plone/volto/components/manage/Blocks/Image/block-image.svg';
+import clearSVG from '@plone/volto/icons/clear.svg';
+import navTreeSVG from '@plone/volto/icons/nav.svg';
+import aheadSVG from '@plone/volto/icons/ahead.svg';
+import uploadSVG from '@plone/volto/icons/upload.svg';
 
-const Dropzone = loadable(() => import("react-dropzone"));
+const Dropzone = loadable(() => import('react-dropzone'));
 
 const messages = defineMessages({
   ImageBlockInputPlaceholder: {
-    id: "Browse the site, drop an image, or type an URL",
-    defaultMessage: "Browse the site, drop an image, or type an URL",
+    id: 'Browse the site, drop an image, or type an URL',
+    defaultMessage: 'Browse the site, drop an image, or type an URL',
   },
 });
 
@@ -68,9 +68,9 @@ class Edit extends Component {
 
   state = {
     uploading: false,
-    url: "",
+    url: '',
     dragging: false,
-    scaledImage: "",
+    scaledImage: '',
   };
 
   /**
@@ -90,15 +90,15 @@ class Edit extends Component {
       });
       this.props.onChangeBlock(this.props.block, {
         ...this.props.data,
-        url: nextProps.content["@id"],
-        alt: "",
+        url: nextProps.content['@id'],
+        alt: '',
       });
     }
     if (this.props?.data?.url !== nextProps?.data?.url) {
       this.props.getContent(
         flattenToAppURL(nextProps.data.url),
         null,
-        nextProps.block
+        nextProps.block,
       );
     }
 
@@ -108,9 +108,9 @@ class Edit extends Component {
           ? setImageSize(
               this.props?.data?.url,
               nextProps.scales,
-              this.props?.data?.align === "full" ? "h" : this.props?.data?.size
+              this.props?.data?.align === 'full' ? 'h' : this.props?.data?.size,
             )
-          : "";
+          : '';
       this.setState({
         scaledImage,
       });
@@ -122,7 +122,7 @@ class Edit extends Component {
       this.props.getContent(
         flattenToAppURL(this.props.data.url),
         null,
-        this.props.block
+        this.props.block,
       );
     }
   }
@@ -158,16 +158,16 @@ class Edit extends Component {
       this.props.createContent(
         getBaseUrl(this.props.pathname),
         {
-          "@type": "Image",
+          '@type': 'Image',
           title: file.name,
           image: {
             data: fields[3],
             encoding: fields[2],
-            "content-type": fields[1],
+            'content-type': fields[1],
             filename: file.name,
           },
         },
-        this.props.block
+        this.props.block,
       );
     });
   };
@@ -212,7 +212,7 @@ class Edit extends Component {
 
   resetSubmitUrl = () => {
     this.setState({
-      url: "",
+      url: '',
     });
   };
 
@@ -232,16 +232,16 @@ class Edit extends Component {
       this.props.createContent(
         getBaseUrl(this.props.pathname),
         {
-          "@type": "Image",
+          '@type': 'Image',
           title: file[0].name,
           image: {
             data: fields[3],
             encoding: fields[2],
-            "content-type": fields[1],
+            'content-type': fields[1],
             filename: file[0].name,
           },
         },
-        this.props.block
+        this.props.block,
       );
     });
   };
@@ -255,11 +255,11 @@ class Edit extends Component {
    * @returns {undefined}
    */
   onKeyDownVariantMenuForm = (e) => {
-    if (e.key === "Enter") {
+    if (e.key === 'Enter') {
       e.preventDefault();
       e.stopPropagation();
       this.onSubmitUrl();
-    } else if (e.key === "Escape") {
+    } else if (e.key === 'Escape') {
       e.preventDefault();
       e.stopPropagation();
       // TODO: Do something on ESC key
@@ -288,25 +288,25 @@ class Edit extends Component {
     return (
       <div
         className={cx(
-          "block image align",
+          'block image align',
           {
             center: !Boolean(data.align),
           },
-          data.align && scaledImage ? data.align : "center"
+          data.align && scaledImage ? data.align : 'center',
         )}
       >
         {scaledImage ? (
           <img
-            height={"auto"}
-            width={data.align === "center" ? "100%" : scaledImage?.width}
+            height={'auto'}
+            width={data.align === 'center' ? '100%' : scaledImage?.width}
             className={cx({
-              "full-width": data.align === "full",
-              large: data.size === "l",
-              medium: data.size === "m",
-              small: data.size === "s",
+              'full-width': data.align === 'full',
+              large: data.size === 'l',
+              medium: data.size === 'm',
+              small: data.size === 's',
             })}
             src={scaledImage?.download}
-            alt={data.alt || ""}
+            alt={data.alt || ''}
           />
         ) : (
           <div>
@@ -348,9 +348,9 @@ class Edit extends Component {
                               <Icon name={uploadSVG} size="24px" />
                               <input
                                 {...getInputProps({
-                                  type: "file",
+                                  type: 'file',
                                   onChange: this.onUploadImage,
-                                  style: { display: "none" },
+                                  style: { display: 'none' },
                                 })}
                               />
                             </label>
@@ -374,7 +374,7 @@ class Edit extends Component {
                                 className="cancel"
                                 onClick={(e) => {
                                   e.stopPropagation();
-                                  this.setState({ url: "" });
+                                  this.setState({ url: '' });
                                 }}
                               >
                                 <Icon name={clearSVG} size="30px" />
@@ -419,6 +419,6 @@ export default compose(
       content: state.content.subrequests[ownProps.block]?.data,
       scales: state.content.subrequests[ownProps.id]?.data?.image?.scales,
     }),
-    { createContent, getContent }
-  )
+    { createContent, getContent },
+  ),
 )(Edit);
