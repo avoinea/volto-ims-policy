@@ -15,13 +15,14 @@ import cx from 'classnames';
 import { isEqual } from 'lodash';
 
 import { Icon, ImageSidebar, SidebarPortal } from '@plone/volto/components';
-import { createContent } from '@plone/volto/actions';
+import { createContent, getContent } from '@plone/volto/actions';
 import {
   flattenToAppURL,
   getBaseUrl,
   isInternalURL,
 } from '@plone/volto/helpers';
 
+import { setImageSize } from '@eeacms/volto-ims-policy/helpers';
 import imageBlockSVG from '@plone/volto/components/manage/Blocks/Image/block-image.svg';
 import clearSVG from '@plone/volto/icons/clear.svg';
 import navTreeSVG from '@plone/volto/icons/nav.svg';
@@ -73,6 +74,7 @@ class Edit extends Component {
     uploading: false,
     url: '',
     dragging: false,
+    scaledImage: '',
   };
 
   /**
@@ -96,6 +98,38 @@ class Edit extends Component {
         alt: '',
       });
     }
+      if (this.props?.data?.url !== nextProps?.data?.url) {
+      this.props.getContent(
+        flattenToAppURL(nextProps.data.url),
+        null,
+        nextProps.block,
+      );
+    }
+
+    if (this.props?.scales !== nextProps?.scales) {
+      const scaledImage =
+        this.props?.data?.url && nextProps?.scales
+          ? setImageSize(
+              this.props?.data?.url,
+              nextProps.scales,
+              this.props?.data?.align === 'full' ? 'h' : this.props?.data?.size,
+            )
+          : '';
+      this.setState({
+        scaledImage,
+      });
+    }
+  }
+
+  componentDidMount() {
+    if (this.props?.data?.url) {
+
+      this.props.getContent(
+        flattenToAppURL(this.props.data.url),
+        null,
+        this.props.block,
+      );
+    }
   }
 
   /**
@@ -103,11 +137,12 @@ class Edit extends Component {
    * @returns {boolean}
    * @memberof Edit
    */
-  shouldComponentUpdate(nextProps) {
+  shouldComponentUpdate(nextProps, nextState) {
     return (
       this.props.selected ||
       nextProps.selected ||
-      !isEqual(this.props.data, nextProps.data)
+      !isEqual(this.props.data, nextProps.data) ||
+      !isEqual(this.state.scaledImage, nextState.scaledImage)
     );
   }
 
@@ -251,6 +286,7 @@ class Edit extends Component {
    */
   render() {
     const { data } = this.props;
+    const { scaledImage } = this.state;
     const placeholder =
       this.props.data.placeholder ||
       this.props.intl.formatMessage(messages.ImageBlockInputPlaceholder);
@@ -261,36 +297,21 @@ class Edit extends Component {
           {
             center: !Boolean(data.align),
           },
-          data.align,
+          data.align && scaledImage ? data.align : 'center',
         )}
       >
-        {data.url ? (
+        {scaledImage ? (
           <img
-            className={cx({
-              'full-width': data.align === 'full',
-              large: data.size === 'l' || data.size === 'f',
-              medium: data.size === 'm',
-              small: data.size === 's',
-            })}
-            src={
-              isInternalURL(data.url)
-                ? // Backwards compat in the case that the block is storing the full server URL
-                  (() => {
-                    if (data.size === 'l')
-                      return `${flattenToAppURL(
-                        data.url,
-                      )}/@@images/image/large`;
-                    if (data.size === 'm')
-                      return `${flattenToAppURL(
-                        data.url,
-                      )}/@@images/image/preview`;
-                    if (data.size === 's')
-                      return `${flattenToAppURL(data.url)}/@@images/image/mini`;
-                    return `${flattenToAppURL(data.url)}/@@images/image`;
-                  })()
-                : data.url
-            }
-            alt={data.alt || ''}
+          height={'auto'}
+          width={data.align === 'center' ? '100%' : scaledImage?.width}
+          className={cx({
+            'full-width': data.align === 'full',
+            large: data.size === 'l',
+            medium: data.size === 'm',
+            small: data.size === 's',
+          })}
+          src={scaledImage?.download}
+          alt={data.alt || ''}
           />
         ) : (
           <div>
@@ -401,7 +422,8 @@ export default compose(
     (state, ownProps) => ({
       request: state.content.subrequests[ownProps.block] || {},
       content: state.content.subrequests[ownProps.block]?.data,
+      scales: state.content.subrequests[ownProps.id]?.data?.image?.scales,
     }),
-    { createContent },
+    { createContent, getContent },
   ),
 )(Edit);
