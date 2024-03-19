@@ -71,7 +71,8 @@ const applyConfig = (config) => {
 
   // Frequency of dissemination
   if (config.widgets.views?.id) {
-    config.widgets.views.id.frequency_of_dissemination = FrequencyOfDissemination;
+    config.widgets.views.id.frequency_of_dissemination =
+      FrequencyOfDissemination;
   }
 
   // Data provenance
